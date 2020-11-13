@@ -19,8 +19,8 @@ Route::post('login', [PassportAuthController::class, 'login'])->name('auth.login
 
 // AdminView
 Route::middleware('auth:api')->group(function () {
-    Route::resource('companies', CompanyController::class);
-    Route::get('companies/{company}/clients', 'App\Http\Controllers\Api\Companies\CompanyController@clients');
-    Route::post('companies/{company}', 'App\Http\Controllers\Api\Companies\CompanyController@attach');
+    Route::apiResource('companies', CompanyController::class);
+    Route::get('companies/{company}/clients', 'App\Http\Controllers\Api\Companies\CompanyController@clients')->name('companies.client');
+    Route::post('companies/{company}', 'App\Http\Controllers\Api\Companies\CompanyController@attach')->name('companies.attach');
     Route::post('register', [PassportAuthController::class, 'register'])->name('auth.register');
 });

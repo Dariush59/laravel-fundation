@@ -125,13 +125,12 @@ class CompanyController extends Controller
 
     public function clients(Company $company){
         $response = Gate::inspect('viewAny', auth()->user());
-        if (!$response->allowed()){
+        if (!$response->allowed())
             return response([ 'message' => $response->message() ], 403);
-        }
-        return response($company->users()->exists()
-            ? (new CompanyClientCollection($company->users()->paginate(1)))->response()->getData(true)
-            : 'There is no client',
-            201);
+        if ($company->users()->exists())
+            return response((new CompanyClientCollection($company->users()->paginate(1)))->response()->getData(true), 201);
+        else
+            return response(['data' => 'There is no client'], 201);
     }
 
     private function companyCollection($company)
