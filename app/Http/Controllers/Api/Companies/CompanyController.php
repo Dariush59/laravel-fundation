@@ -26,7 +26,6 @@ class CompanyController extends Controller
                 ? $this->companyCollection($company)
                 : 'There is no company',
             201);
-//            return response([ 'message' => $response->message() ], 403);
         }
         try {
             return new CompanyCollection($company->paginate(5));
@@ -113,9 +112,6 @@ class CompanyController extends Controller
             $user =User::find($userId);
             if (isset($user) && is_null($user->company_id) ){
                 $user->update(['joined_at' => now(), 'company_id' ]);
-                $user->company_id = $company->id;
-                $user->joined_at = now();
-                $user->save();
                 // Fire Email Event
                 event( new UserAttached($user));
             }

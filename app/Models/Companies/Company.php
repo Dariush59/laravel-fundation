@@ -26,7 +26,6 @@ class Company extends Model
     }
 
     public function prettyAddress(){
-//        return `$($this->house_no) $($this->street_address) $($this->city) $($this->country)`;
         return "$this->house_no $this->street_address $this->city $this->country";
     }
 }
